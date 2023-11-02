@@ -13,7 +13,7 @@ class ArrayUtil
     /**
      *
      * @param array $arr
-     * @return true if $arr is an associative array
+     * @return bool true if $arr is an associative array
      */
     public static function isAssocArray(array $arr)
     {

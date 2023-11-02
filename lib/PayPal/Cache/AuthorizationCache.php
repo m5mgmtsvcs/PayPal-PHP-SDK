@@ -53,7 +53,7 @@ abstract class AuthorizationCache
      * @param      $tokenExpiresIn
      * @throws \Exception
      */
-    public static function push($config = null, $clientId, $accessToken, $tokenCreateTime, $tokenExpiresIn)
+    public static function push($config, $clientId, $accessToken, $tokenCreateTime, $tokenExpiresIn)
     {
         // Return if not enabled
         if (!self::isEnabled($config)) {
@@ -62,7 +62,7 @@ abstract class AuthorizationCache
 
         $cachePath = self::cachePath($config);
         if (!is_dir(dirname($cachePath))) {
-            if (mkdir(dirname($cachePath), 0755, true) == false) {
+            if (mkdir($concurrentDirectory = dirname($cachePath), 0755, true) || !is_dir($concurrentDirectory)) {
                 throw new \Exception("Failed to create directory at $cachePath");
             }
         }

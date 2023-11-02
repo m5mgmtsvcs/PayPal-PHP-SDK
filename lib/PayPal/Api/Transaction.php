@@ -16,7 +16,7 @@ class Transaction extends TransactionBase
      * Additional transactions for complex payment scenarios.
      *
      *
-     * @param self $transactions
+     * @param self[] $transactions
      *
      * @return $this
      */

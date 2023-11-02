@@ -40,16 +40,17 @@ class UrlValidatorTest extends TestCase
      */
     public function testValidate($input)
     {
-        UrlValidator::validate($input, "Test Value");
+        $this->assertTrue(UrlValidator::validate($input, "Test Value"));
     }
 
     /**
      *
      * @dataProvider invalidProvider
-     * @expectedException \InvalidArgumentException
      */
     public function testValidateException($input)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         UrlValidator::validate($input, "Test Value");
     }
 }

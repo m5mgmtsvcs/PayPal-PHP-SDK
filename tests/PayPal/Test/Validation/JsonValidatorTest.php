@@ -34,16 +34,17 @@ class JsonValidatorTest extends TestCase
      */
     public function testValidate($input)
     {
-        $this->assertTrue(JsonValidator::validate($input));
+        $this->assertTrue(JsonValidator::validate($input, true));
     }
 
     /**
      *
      * @dataProvider invalidProvider
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidJson($input)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         JsonValidator::validate($input);
     }
 

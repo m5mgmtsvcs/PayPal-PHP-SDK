@@ -38,7 +38,7 @@ class CreditCardHistoryTest extends TestCase
         return $card;
     }
 
-    public function setup()
+    public function setup(): void
     {
         $card = self::createCreditCard();
         $card->setBillingAddress(AddressTest::getObject());

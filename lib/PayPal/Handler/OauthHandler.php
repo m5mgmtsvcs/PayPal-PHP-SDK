@@ -71,7 +71,7 @@ class OauthHandler implements IPayPalHandler
      *
      * @param array $config
      *
-     * @return PayPalHttpConfig
+     * @return string
      * @throws \PayPal\Exception\PayPalConfigurationException
      */
     private static function _getEndpoint($config)

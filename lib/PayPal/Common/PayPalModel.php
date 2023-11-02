@@ -62,7 +62,7 @@ class PayPalModel
      * contains an array of this object
      *
      * @param mixed $data Array object or json string representation
-     * @return array
+     * @return array|static
      */
     public static function getList($data)
     {

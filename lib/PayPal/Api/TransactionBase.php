@@ -9,7 +9,7 @@ namespace PayPal\Api;
  *
  * @package PayPal\Api
  *
- * @property \PayPal\Api\RelatedResources related_resources
+ * @property \PayPal\Api\RelatedResources[] $related_resources
  */
 class TransactionBase extends CartBase 
 {

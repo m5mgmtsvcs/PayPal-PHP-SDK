@@ -27,7 +27,7 @@ class BillingAgreementsFunctionalTest extends TestCase
 
     public $mockPayPalRestCall;
 
-    public function setUp()
+    public function setUp(): void
     {
         $className = $this->getClassName();
         $testName = $this->getName();

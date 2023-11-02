@@ -13,18 +13,18 @@ class JsonValidator
     /**
      * Helper method for validating if string provided is a valid json.
      *
-     * @param string $string String representation of Json object
+     * @param string|null $string String representation of Json object
      * @param bool $silent Flag to not throw \InvalidArgumentException
      * @return bool
      */
-    public static function validate($string, $silent = false)
+    public static function validate(string|null $string, bool $silent = false)
     {
-        @json_decode($string);
+        @json_decode($string, true, 512, 0);
         if (json_last_error() != JSON_ERROR_NONE) {
             if ($string === '' || $string === null) {
                 return true;
             }
-            if ($silent == false) {
+            if (!$silent) {
                 //Throw an Exception for string or array
                 throw new \InvalidArgumentException("Invalid JSON String");
             }
