@@ -175,8 +175,8 @@ class BillingAgreementsFunctionalTest extends TestCase
         $params = array('start_date' => date('Y-m-d', strtotime('-15 years')), 'end_date' => date('Y-m-d', strtotime('+5 days')));
         $result = Agreement::searchTransactions($agreement->getId(), $params, $this->apiContext, $this->mockPayPalRestCall);
         $this->assertNotNull($result);
-        $this->assertInternalType('array', $result->getAgreementTransactionList());
-        $this->assertGreaterThan(0, sizeof($result->getAgreementTransactionList()));
+        $this->assertIsArray($result->getAgreementTransactionList());
+        $this->assertGreaterThan(0, count($result->getAgreementTransactionList()));
         $list = $result->getAgreementTransactionList();
         $first = $list[0];
         $this->assertEquals($first->getTransactionId(), $agreement->getId());

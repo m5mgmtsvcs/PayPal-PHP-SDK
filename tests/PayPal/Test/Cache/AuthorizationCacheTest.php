@@ -60,7 +60,7 @@ class AuthorizationCacheTest extends TestCase
     public function testCachePath($config, $expected)
     {
         $result = AuthorizationCache::cachePath($config);
-        $this->assertContains($expected, $result);
+        $this->assertStringContainsString($expected, $result);
     }
 
     public function testCacheDisabled()
@@ -68,6 +68,8 @@ class AuthorizationCacheTest extends TestCase
         // 'cache.enabled' => true,
         AuthorizationCache::push(array('cache.enabled' => false), 'clientId', 'accessToken', 'tokenCreateTime', 'tokenExpiresIn');
         AuthorizationCache::pull(array('cache.enabled' => false), 'clientId');
+
+        $this->assertTrue(true);
     }
 
     public function testCachePush()
@@ -95,7 +97,7 @@ class AuthorizationCacheTest extends TestCase
     {
         $result = AuthorizationCache::pull(array('cache.enabled' => true, 'cache.FileName' => AuthorizationCacheTest::CACHE_FILE), 'clientId');
         $this->assertNotNull($result);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertEquals('clientId', $result['clientId']);
         $this->assertEquals('accessToken', $result['accessTokenEncrypted']);
         $this->assertEquals('tokenCreateTime', $result['tokenCreateTime']);

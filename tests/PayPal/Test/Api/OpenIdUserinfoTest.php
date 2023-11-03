@@ -58,7 +58,7 @@ class OpenIdUserinfoTest extends TestCase
      */
     public function testInvalidParamUserInfoCall()
     {
-        $this->setExpectedException('PayPal\Exception\PayPalConnectionException');
+        $this->expectException('PayPal\Exception\PayPalConnectionException');
         OpenIdUserinfo::getUserinfo(array('access_token' => 'accessToken'));
     }
 }

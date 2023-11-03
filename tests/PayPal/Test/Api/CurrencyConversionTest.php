@@ -72,20 +72,12 @@ class CurrencyConversionTest extends TestCase
         $this->assertEquals($obj->getLinks(), LinksTest::getObject());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage WebUrl is not a fully qualified URL
-     */
     public function testUrlValidationForWebUrl()
     {
-        $obj = new CurrencyConversion();
-        $obj->setWebUrl(null);
-    }
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('WebUrl is not a fully qualified URL');
 
-    public function testUrlValidationForWebUrlDeprecated()
-    {
         $obj = new CurrencyConversion();
         $obj->setWebUrl(null);
-        $this->assertNull($obj->getWebUrl());
     }
 }

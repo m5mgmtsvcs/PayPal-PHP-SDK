@@ -332,19 +332,20 @@ class PayPalModelTest extends TestCase
         $this->assertEquals($expected, $result);
         if ($input) {
             $this->assertNotNull($result);
-            $this->assertInternalType('array', $result);
+            $this->assertIsArray($result);
             $this->assertCount($count, $result);
         }
     }
 
     /**
      * @dataProvider getInvalidProvider
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Invalid JSON String
      * @param string|null $input
      */
     public function testGetListInvalidInput($input)
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid JSON String');
+
         $result = PayPalModel::getList($input);
     }
 }

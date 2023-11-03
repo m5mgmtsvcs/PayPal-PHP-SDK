@@ -29,7 +29,7 @@ class OauthHandlerTest extends TestCase
     /**
      * @var array
      */
-    public $config;
+    public $config = [];
 
     public function setUp(): void
     {

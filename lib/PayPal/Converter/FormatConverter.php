@@ -27,8 +27,8 @@ class FormatConverter
      */
     public static function formatToNumber($value, $decimals = 2)
     {
-        if (trim($value) != null) {
-            return number_format($value, $decimals, '.', '');
+        if ($value !== null && trim($value) !== '') {
+            return number_format(trim($value), $decimals, '.', '');
         }
         return null;
     }
@@ -40,11 +40,15 @@ class FormatConverter
      * any specific currency level rules as required here.
      *
      * @param      $value
-     * @param null $currency
+     * @param string|null $currency
      * @return null|string
      */
     public static function formatToPrice($value, $currency = null)
     {
+        if ($value === null) {
+            return null;
+        }
+
         $decimals = 2;
         $currencyDecimals = array('JPY' => 0, 'TWD' => 0, 'HUF' => 0);
         if ($currency && array_key_exists($currency, $currencyDecimals)) {
@@ -53,10 +57,19 @@ class FormatConverter
                 throw new \InvalidArgumentException("value cannot have decimals for $currency currency");
             }
             $decimals = $currencyDecimals[$currency];
-        } elseif (!str_contains($value, ".")) {
+        } elseif (!str_contains($value, '.')) {
             // Check if value has decimal values. If not no need to assign 2 decimals with .00 at the end
             $decimals = 0;
         }
-        return self::formatToNumber($value, $decimals);
+
+        $result = self::formatToNumber($value, $decimals);
+
+        if ($result === null) {
+            return null;
+        }
+
+        return str_ends_with($result, '.00')
+            ? substr($result, 0, -3)
+            : $result;
     }
 }

@@ -12,9 +12,9 @@ class NumericValidatorTest extends TestCase
         return array(
             array(".5", "0.50"),
             array(".55", "0.55"),
-            array("0", "0"),
+            array("0", "0.00"),
             array(null, null),
-            array("01", "1"),
+            array("01", "1.00"),
             array("01.1", "1.10"),
             array("10.0", "10.00"),
             array("0.0", "0.00"),
@@ -22,9 +22,33 @@ class NumericValidatorTest extends TestCase
             array("000.111", "0.11"),
             array("000.0001", "0.00"),
             array("-0.001", "0.00"),
-            array("-0", "0"),
+            array("-0", "0.00"),
             array("-00.00", "0.00"),
             array("-10.00", "-10.00"),
+            array("", null),
+            array("  ", null),
+            array(1.20, "1.20")
+        );
+    }
+
+    public static function positiveProviderPrice()
+    {
+        return array(
+            array(".5", "0.50"),
+            array(".55", "0.55"),
+            array("0", "0"),
+            array(null, null),
+            array("01", "1"),
+            array("01.1", "1.10"),
+            array("10.0", "10"),
+            array("0.0", "0"),
+            array("00.00", "0"),
+            array("000.111", "0.11"),
+            array("000.0001", "0"),
+            array("-0.001", "0"),
+            array("-0", "0"),
+            array("-00.00", "0"),
+            array("-10.00", "-10"),
             array("", null),
             array("  ", null),
             array(1.20, "1.20")
@@ -53,10 +77,11 @@ class NumericValidatorTest extends TestCase
     /**
      *
      * @dataProvider invalidProvider
-     * @expectedException \InvalidArgumentException
      */
     public function testValidateException($input)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         NumericValidator::validate($input, "Test Value");
     }
 }

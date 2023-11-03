@@ -71,50 +71,30 @@ class MerchantPreferencesTest extends TestCase
         $this->assertEquals($obj->getCharSet(), "TestSample");
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage CancelUrl is not a fully qualified URL
-     */
     public function testUrlValidationForCancelUrl()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('CancelUrl is not a fully qualified URL');
+
         $obj = new MerchantPreferences();
         $obj->setCancelUrl(null);
-    }
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage ReturnUrl is not a fully qualified URL
-     */
-    public function testUrlValidationForReturnUrl()
-    {
-        $obj = new MerchantPreferences();
-        $obj->setReturnUrl(null);
-    }
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage NotifyUrl is not a fully qualified URL
-     */
-    public function testUrlValidationForNotifyUrl()
-    {
-        $obj = new MerchantPreferences();
-        $obj->setNotifyUrl(null);
     }
 
-    public function testUrlValidationForCancelUrlDeprecated()
+    public function testUrlValidationForReturnUrl()
     {
-        $obj = new MerchantPreferences();
-        $obj->setCancelUrl(null);
-        $this->assertNull($obj->getCancelUrl());
-    }
-    public function testUrlValidationForReturnUrlDeprecated()
-    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('ReturnUrl is not a fully qualified URL');
+
         $obj = new MerchantPreferences();
         $obj->setReturnUrl(null);
-        $this->assertNull($obj->getReturnUrl());
     }
-    public function testUrlValidationForNotifyUrlDeprecated()
+
+    public function testUrlValidationForNotifyUrl()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('NotifyUrl is not a fully qualified URL');
+
         $obj = new MerchantPreferences();
         $obj->setNotifyUrl(null);
-        $this->assertNull($obj->getNotifyUrl());
     }
 }

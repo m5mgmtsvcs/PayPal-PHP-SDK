@@ -47,7 +47,7 @@ class FormatConverterTest extends TestCase
     public static function apiModelSettersProvider()
     {
         $provider = array();
-        foreach (NumericValidatorTest::positiveProvider() as $value) {
+        foreach (NumericValidatorTest::positiveProviderPrice() as $value) {
             foreach (self::classMethodListProvider() as $method) {
                 $provider[] = array_merge($method, array($value));
             }
@@ -84,7 +84,7 @@ class FormatConverterTest extends TestCase
         try {
             FormatConverter::formatToPrice("1.234", $input);
         } catch (\InvalidArgumentException $ex) {
-            $this->assertContains("value cannot have decimals for", $ex->getMessage());
+            $this->assertStringContainsString("value cannot have decimals for", $ex->getMessage());
         }
     }
 
@@ -138,10 +138,11 @@ class FormatConverterTest extends TestCase
 
     /**
      * @dataProvider apiModelSettersInvalidProvider
-     * @expectedException \InvalidArgumentException
      */
     public function testSettersOfKnownApiModelInvalid($class, $methodName, $values)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $obj = new $class();
         $setter = "set" . $methodName;
         $obj->$setter($values[0]);

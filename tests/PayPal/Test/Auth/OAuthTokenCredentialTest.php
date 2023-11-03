@@ -5,6 +5,7 @@ namespace PayPal\Test\Auth;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Cache\AuthorizationCache;
 use PayPal\Core\PayPalConfigManager;
+use PayPal\Exception\PayPalConnectionException;
 use PayPal\Rest\ApiContext;
 use PayPal\Test\Cache\AuthorizationCacheTest;
 use PayPal\Test\Constants;
@@ -36,7 +37,7 @@ class OAuthTokenCredentialTest extends TestCase
      */
     public function testInvalidCredentials()
     {
-        $this->setExpectedException('PayPal\Exception\PayPalConnectionException');
+        $this->expectException('PayPal\Exception\PayPalConnectionException');
         $cred = new OAuthTokenCredential('dummy', 'secret');
         $this->assertNull($cred->getAccessToken(PayPalConfigManager::getInstance()->getConfigHashmap()));
     }
@@ -111,12 +112,11 @@ class OAuthTokenCredentialTest extends TestCase
         $this->assertEquals('accessToken', $response);
     }
 
-    /**
-     * @expectedException \PayPal\Exception\PayPalConnectionException
-     * @expectedExceptionMessage Could not generate new Access token. Invalid response from server:
-     */
     public function testUpdateAccessTokenNullReturnUnitMock()
     {
+        $this->expectException(PayPalConnectionException::class);
+        $this->expectExceptionMessage('Could not generate new Access token. Invalid response from server:');
+
         $config = array(
             'mode' => 'sandbox'
         );

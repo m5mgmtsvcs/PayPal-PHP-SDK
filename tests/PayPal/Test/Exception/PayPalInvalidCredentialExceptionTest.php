@@ -36,6 +36,6 @@ class PayPalInvalidCredentialExceptionTest extends TestCase
     public function testErrorMessage()
     {
         $msg = $this->object->errorMessage();
-        $this->assertContains('Error on line', $msg);
+        $this->assertStringContainsString('Error on line', $msg);
     }
 }

@@ -143,14 +143,14 @@ class PayPalCredentialManager
      */
     public function getCredentialObject($userId = null)
     {
-        if ($userId == null && array_key_exists($this->defaultAccountName, $this->credentialHashmap)) {
+        if ($userId === null && array_key_exists($this->defaultAccountName, $this->credentialHashmap)) {
             $credObj = $this->credentialHashmap[$this->defaultAccountName];
         } elseif (array_key_exists($userId, $this->credentialHashmap)) {
             $credObj = $this->credentialHashmap[$userId];
         }
 
         if (empty($credObj)) {
-            throw new PayPalInvalidCredentialException("Credential not found for " .  ($userId ? $userId : " default user") .
+            throw new PayPalInvalidCredentialException("Credential not found for " .  ($userId ?: " default user") .
             ". Please make sure your configuration/APIContext has credential information");
         }
         return $credObj;

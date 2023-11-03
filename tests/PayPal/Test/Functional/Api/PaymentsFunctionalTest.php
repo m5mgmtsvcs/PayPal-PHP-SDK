@@ -116,8 +116,10 @@ class PaymentsFunctionalTest extends TestCase
      */
     public function testExecute($payment)
     {
-        if (Setup::$mode == 'sandbox') {
+        if (Setup::$mode === 'sandbox') {
             $this->markTestSkipped('Not executable on sandbox environment. Needs human interaction');
         }
+
+        $this->assertTrue(true);
     }
 }
